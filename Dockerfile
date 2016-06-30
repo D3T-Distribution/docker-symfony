@@ -1,6 +1,7 @@
 FROM ubuntu:xenial
 
-RUN apt-get update && apt-get install -y curl php7.0-cli php7.0-common php7.0-fpm php7.0-mysql php7.0-xml php-xdebug supervisor nginx
+RUN apt-get update && apt-get install -y curl supervisor nginx git
+RUN apt-get update && apt-get install -y php7.0-cli php7.0-common php7.0-fpm php7.0-mysql php7.0-xml php7.0-bcmath php7.0-mbstring php7.0-zip php-xdebug
 
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
