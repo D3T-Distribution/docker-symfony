@@ -3,6 +3,7 @@ FROM ubuntu:xenial
 RUN echo "Europe/Paris" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
 RUN apt-get update -qq && apt-get install -y -qq curl supervisor nginx git wget
 RUN apt-get update -qq && apt-get install -y -qq php7.0-cli php7.0-common php7.0-fpm php7.0-mysql php7.0-xml php7.0-bcmath php7.0-mbstring php7.0-zip php-xdebug
+RUN apt-get update -qq && apt-get install -y -qq wkhtmltopdf xvfb
 
 # install tools
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
