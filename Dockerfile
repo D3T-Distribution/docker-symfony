@@ -10,7 +10,7 @@ RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/lo
 RUN curl http://get.sensiolabs.org/php-cs-fixer.phar -o php-cs-fixer && chmod a+x php-cs-fixer && mv php-cs-fixer /usr/local/bin/php-cs-fixer
 
 # install npm
-RUN apt-get install -y -qq npm
+RUN apt-get update -qq && apt-get install -y -qq npm
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
 # install bower
