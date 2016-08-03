@@ -16,6 +16,12 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node
 # install bower
 RUN npm install --global bower
 
+# Rabbitmq-cli-consumer
+RUN wget https://github.com/ricbra/rabbitmq-cli-consumer/releases/download/1.4.2/rabbitmq-cli-consumer-linux-amd64.tar.gz && \
+ tar xzf rabbitmq-cli-consumer-linux-amd64.tar.gz && \
+ mv rabbitmq-cli-consumer /usr/bin/rabbitmq-cli-consumer && \
+ rm rabbitmq-cli-consumer-linux-amd64.tar.gz
+
 # Configure runner
 RUN sed -e 's/;daemonize = yes/daemonize = no/' -i /etc/php/7.0/fpm/php-fpm.conf \
     && sed -e 's/;listen\.owner/listen.owner/' -i /etc/php/7.0/fpm/pool.d/www.conf \
