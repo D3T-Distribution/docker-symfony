@@ -28,7 +28,9 @@ RUN sed -e 's/;daemonize = yes/daemonize = no/' -i /etc/php/7.0/fpm/php-fpm.conf
     && sed -e 's/;listen\.group/listen.group/' -i /etc/php/7.0/fpm/pool.d/www.conf \
     && echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 
-ADD supervisor.conf /etc/supervisor/conf.d/supervisor.conf
+ADD supervisor/nginx-php.conf /etc/supervisor/conf.d/nginx-php.conf
+ADD supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+
 ADD vhost.conf /etc/nginx/sites-available/default
 
 RUN mkdir /run/php
