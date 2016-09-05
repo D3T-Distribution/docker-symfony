@@ -26,7 +26,10 @@ RUN wget https://github.com/ricbra/rabbitmq-cli-consumer/releases/download/1.4.2
 RUN sed -e 's/;daemonize = yes/daemonize = no/' -i /etc/php/7.0/fpm/php-fpm.conf \
     && sed -e 's/;listen\.owner/listen.owner/' -i /etc/php/7.0/fpm/pool.d/www.conf \
     && sed -e 's/;listen\.group/listen.group/' -i /etc/php/7.0/fpm/pool.d/www.conf \
-    && echo "\ndaemon off;" >> /etc/nginx/nginx.conf
+    && sed -e 's/;date\.timezone =/date\.timezone = Europe\/Paris/' -i /etc/php/7.0/fpm/php.ini \ 
+    && sed -e 's/;date\.timezone =/date\.timezone = Europe\/Paris/' -i /etc/php/7.0/cli/php.ini \ 
+    && echo "\ndaemon off;" >> /etc/nginx/nginx.conf 
+
 
 ADD supervisor/container.conf /etc/supervisor/container.conf
 ADD supervisor/supervisord.conf /etc/supervisor/supervisord.conf
