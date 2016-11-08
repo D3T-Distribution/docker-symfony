@@ -3,7 +3,6 @@ FROM ubuntu:xenial
 RUN echo "Europe/Paris" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
 RUN apt-get update -qq && apt-get install -y -qq curl supervisor nginx git wget
 RUN apt-get update -qq && apt-get install -y -qq php7.0-cli php7.0-common php7.0-fpm php7.0-mysql php7.0-xml php7.0-bcmath php7.0-mbstring php7.0-zip php-xdebug php-curl php-apcu php-ssh2 php7.0-soap php-imagick php7.0-gd php7.0-intl
-RUN apt-get update -qq && apt-get install -y -qq wkhtmltopdf xvfb
 
 # install tools
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
@@ -18,6 +17,13 @@ RUN npm install --global bower
 
 # Install csscomb
 RUN npm install --global csscomb
+
+# Install wkhtmltox with deps
+RUN wget http://download.gna.org/wkhtmltopdf/0.12/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
+ tar xf wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
+ rsync -av wkhtmltox/* / && \
+ chmod u+x /bin/wkhtmltoimage /bin/wkhtmltopdf
+RUN apt-get update -qq && apt-get install -y -qq libxrender1
 
 # Rabbitmq-cli-consumer
 RUN wget https://github.com/ricbra/rabbitmq-cli-consumer/releases/download/1.4.2/rabbitmq-cli-consumer-linux-amd64.tar.gz && \
