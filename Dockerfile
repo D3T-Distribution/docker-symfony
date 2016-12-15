@@ -36,6 +36,8 @@ RUN sed -e 's/;daemonize = yes/daemonize = no/' -i /etc/php/7.0/fpm/php-fpm.conf
     && sed -e 's/;listen\.owner/listen.owner/' -i /etc/php/7.0/fpm/pool.d/www.conf \
     && sed -e 's/;listen\.group/listen.group/' -i /etc/php/7.0/fpm/pool.d/www.conf \
     && sed -e 's/;date\.timezone =/date\.timezone = Europe\/Paris/' -i /etc/php/7.0/fpm/php.ini \
+    && sed -e 's/post_max_size = 8M/post_max_size = 30M/' -i /etc/php/7.0/fpm/php.ini \
+    && sed -e 's/upload_max_filesize = 2M/upload_max_filesize = 30M/' -i /etc/php/7.0/fpm/php.ini \
     && sed -e 's/;date\.timezone =/date\.timezone = Europe\/Paris/' -i /etc/php/7.0/cli/php.ini \
     && echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 
