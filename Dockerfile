@@ -25,12 +25,6 @@ RUN wget http://download.gna.org/wkhtmltopdf/0.12/0.12.3/wkhtmltox-0.12.3_linux-
  chmod u+x /bin/wkhtmltoimage /bin/wkhtmltopdf
 RUN apt-get update -qq && apt-get install -y -qq libxrender1
 
-# Rabbitmq-cli-consumer
-RUN wget https://github.com/ricbra/rabbitmq-cli-consumer/releases/download/1.4.2/rabbitmq-cli-consumer-linux-amd64.tar.gz && \
- tar xzf rabbitmq-cli-consumer-linux-amd64.tar.gz && \
- mv rabbitmq-cli-consumer /usr/bin/rabbitmq-cli-consumer && \
- rm rabbitmq-cli-consumer-linux-amd64.tar.gz
-
 # Configure runner
 RUN sed -e 's/;daemonize = yes/daemonize = no/' -i /etc/php/7.0/fpm/php-fpm.conf \
     && sed -e 's/;listen\.owner/listen.owner/' -i /etc/php/7.0/fpm/pool.d/www.conf \
