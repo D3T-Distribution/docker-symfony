@@ -48,10 +48,9 @@ ADD supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 ADD nginx/vhost.conf /etc/nginx/sites-available/default
 
 RUN mkdir /run/php
-RUN usermod -u 1000 www-data
 
 VOLUME /var/www
-WORKDIR /var/www
+WORKDIR /var/www/current
 
 EXPOSE 80
 
