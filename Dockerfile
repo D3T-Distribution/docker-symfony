@@ -41,7 +41,8 @@ RUN sed -e 's/;daemonize = yes/daemonize = no/' -i /etc/php/7.0/fpm/php-fpm.conf
 ADD supervisor/container.conf /etc/supervisor/container.conf
 ADD supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 
-ADD nginx/vhost.conf /etc/nginx/sites-available/default
+ADD nginx/nginx.conf /etc/nginx/nginx.conf
+ADD nginx/nginx_prod.conf /etc/nginx/nginx_prod.conf
 
 RUN mkdir /run/php
 
