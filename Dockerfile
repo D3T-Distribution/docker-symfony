@@ -39,6 +39,7 @@ ADD supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 
 ADD nginx/nginx.conf /etc/nginx/nginx.conf
 ADD nginx/nginx_prod.conf /etc/nginx/nginx_prod.conf
+ADD nginx/nginx_prod.conf /etc/nginx/nginx_php7.1.conf
 
 RUN mkdir /run/php
 
