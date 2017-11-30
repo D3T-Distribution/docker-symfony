@@ -19,10 +19,12 @@ RUN npm install --global bower
 RUN npm install --global csscomb
 
 # Install wkhtmltox with deps
-RUN wget http://download.gna.org/wkhtmltopdf/0.12/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
+RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
  tar xf wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
  rsync -av wkhtmltox/* / && \
- chmod u+x /bin/wkhtmltoimage /bin/wkhtmltopdf
+ chmod u+x /bin/wkhtmltoimage /bin/wkhtmltopdf && \
+ rm wkhtmltox-0.12.3_linux-generic-amd64.tar.xz
+
 RUN apt-get update -qq && apt-get install -y -qq libxrender1
 
 # Configure runner
