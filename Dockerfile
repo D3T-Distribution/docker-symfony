@@ -40,11 +40,14 @@ ADD supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 ADD nginx/nginx.conf /etc/nginx/nginx.conf
 ADD nginx/nginx_prod.conf /etc/nginx/nginx_prod.conf
 
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/C=GB/ST=London/L=London/O=Global Security/OU=IT Department/CN=example.com"
+
 RUN mkdir /run/php
 
 VOLUME /var/www
 WORKDIR /var/www/current
 
 EXPOSE 80
+EXPOSE 443
 
 CMD ["/usr/bin/supervisord"]
