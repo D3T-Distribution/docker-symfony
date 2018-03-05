@@ -47,4 +47,6 @@ WORKDIR /var/www/current
 
 EXPOSE 80
 
-CMD ["/usr/bin/supervisord"]
+COPY start.sh /
+RUN chmod +x /start.sh
+CMD ["/start.sh"]
