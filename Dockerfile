@@ -4,15 +4,18 @@ RUN apt-get update -qq && apt-get install -y -qq curl supervisor nginx git wget 
 RUN LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 RUN echo "Europe/Paris" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
 # install php 7.1 & npm
-RUN apt-get update -qq && apt-get install -y -qq php7.1-cli php7.1-common php7.1-fpm php7.1-mysql php7.1-xml php7.1-bcmath php7.1-mbstring php7.1-zip php7.1-xdebug php-curl php-apcu php-ssh2 php7.1-soap php-imagick php7.1-gd php7.1-intl npm
-RUN ln -s /usr/bin/nodejs /usr/bin/node
+RUN apt-get update -qq && apt-get install -y -qq php7.1-cli php7.1-common php7.1-fpm php7.1-mysql php7.1-xml php7.1-bcmath php7.1-mbstring php7.1-zip php7.1-xdebug php-curl php-apcu php-ssh2 php7.1-soap php-imagick php7.1-gd php7.1-intl
+
+# install nodejs npm
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
+RUN apt-get update -qq && apt-get install -y nodejs
 
 # install tools
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 RUN curl http://get.sensiolabs.org/php-cs-fixer.phar -o php-cs-fixer && chmod a+x php-cs-fixer && mv php-cs-fixer /usr/local/bin/php-cs-fixer
 
 # install bower, csscomb & robohydra
-RUN ln -s /usr/bin/nodejs /usr/bin/node && npm install --global bower csscomb robohydra
+RUN npm install --global bower csscomb robohydra
 
 ENV NODE_PATH=/usr/local/lib/node_modules
 
@@ -50,7 +53,9 @@ VOLUME /var/www
 WORKDIR /var/www/current
 
 EXPOSE 80
-EXPOSE 3000
 EXPOSE 443
+EXPOSE 3000
+EXPOSE 8443
+EXPOSE 444
 
 CMD ["/usr/bin/supervisord"]
