@@ -8,7 +8,7 @@ RUN apt-get update -qq && apt-get install -y -qq php7.1-cli php7.1-common php7.1
 
 # install nodejs npm
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
-RUN apt-get update -qq && apt-get install -y nodejs
+RUN apt-get update -qq && apt-get install -y nodejs gcc g++ make
 
 # install tools
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
