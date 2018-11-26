@@ -4,7 +4,7 @@ RUN apt-get update -qq && apt-get install -y -qq curl supervisor nginx git wget 
 RUN LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 RUN echo "Europe/Paris" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
 # install php 7.1 & npm
-RUN apt-get update -qq && apt-get install -y -qq php7.1-cli php7.1-common php7.1-fpm php7.1-mysql php7.1-xml php7.1-bcmath php7.1-mbstring php7.1-zip php7.1-xdebug php-curl php-apcu php-ssh2 php7.1-soap php-imagick php7.1-gd php7.1-intl
+RUN apt-get update -qq && apt-get install -y -qq php7.1-cli php7.1-common php7.1-fpm php7.1-mysql php7.1-xml php7.1-bcmath php7.1-mbstring php7.1-zip php7.1-xdebug php7.1-curl php-apcu php-ssh2 php7.1-soap php-imagick php7.1-gd php7.1-intl
 
 # install nodejs npm
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash
