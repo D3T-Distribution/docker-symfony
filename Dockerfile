@@ -17,7 +17,7 @@ RUN curl http://get.sensiolabs.org/php-cs-fixer.phar -o php-cs-fixer && chmod a+
 # install bower, csscomb & robohydra
 RUN npm install --global bower csscomb robohydra
 
-ENV NODE_PATH=/usr/local/lib/node_modules
+ENV NODE_PATH=/usr/lib/node_modules
 
 # Install wkhtmltox with deps
 RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.3/wkhtmltox-0.12.3_linux-generic-amd64.tar.xz && \
