@@ -31,7 +31,11 @@ RUN apt-get update -qq && apt-get install -y -qq libxrender1
 RUN sed -e 's/;daemonize = yes/daemonize = no/' -i /etc/php/7.0/fpm/php-fpm.conf \
     && sed -e 's/;listen\.owner/listen.owner/' -i /etc/php/7.0/fpm/pool.d/www.conf \
     && sed -e 's/;listen\.group/listen.group/' -i /etc/php/7.0/fpm/pool.d/www.conf \
-    && sed -e 's/pm.max_children = 5/pm.max_children = 25/' -i /etc/php/7.0/fpm/pool.d/www.conf \
+    && sed -e 's/;pm = dynamic/pm = ondemand/' -i /etc/php/7.0/fpm/pool.d/www.conf \
+    && sed -e 's/pm.max_children = 5/pm.max_children = 500/' -i /etc/php/7.0/fpm/pool.d/www.conf \
+    && sed -e 's/;pm.start_servers = 2/pm.start_servers = 64/' -i /etc/php/7.0/fpm/pool.d/www.conf \
+    && sed -e 's/;pm.min_spare_servers = 1/pm.min_spare_servers = 10/' -i /etc/php/7.0/fpm/pool.d/www.conf \
+    && sed -e 's/;pm.max_spare_servers = 3/pm.max_spare_servers = 128/' -i /etc/php/7.0/fpm/pool.d/www.conf \
     && sed -e 's/;date\.timezone =/date\.timezone = Europe\/Paris/' -i /etc/php/7.0/fpm/php.ini \
     && sed -e 's/post_max_size = 8M/post_max_size = 30M/' -i /etc/php/7.0/fpm/php.ini \
     && sed -e 's/upload_max_filesize = 2M/upload_max_filesize = 30M/' -i /etc/php/7.0/fpm/php.ini \
