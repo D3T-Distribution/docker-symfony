@@ -1,6 +1,6 @@
 FROM ubuntu:xenial
 
-ENV composerVersion 1.7.3
+ENV composerVersion 1.7.2
 
 RUN apt-get update -qq && apt-get install -y -qq curl supervisor nginx git wget tzdata software-properties-common python-software-properties libxrender1
 RUN LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
