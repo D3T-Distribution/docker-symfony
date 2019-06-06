@@ -1,5 +1,7 @@
 FROM ubuntu:xenial
 
+ENV composerVersion 1.7.3
+
 RUN apt-get update -qq && apt-get install -y -qq curl supervisor nginx git wget tzdata software-properties-common python-software-properties libxrender1
 RUN LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 RUN echo "Europe/Paris" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
@@ -8,7 +10,7 @@ RUN apt-get update -qq && apt-get install -y -qq php7.1-cli php7.1-common php7.1
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
 # install tools
-RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --version=${composerVersion} && mv composer.phar /usr/local/bin/composer
 RUN curl http://get.sensiolabs.org/php-cs-fixer.phar -o php-cs-fixer && chmod a+x php-cs-fixer && mv php-cs-fixer /usr/local/bin/php-cs-fixer
 
 # install bower & csscomb
