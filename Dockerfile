@@ -52,6 +52,8 @@ ADD nginx/nginx_prod.conf /etc/nginx/nginx_prod.conf
 
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/C=GB/ST=London/L=London/O=Global Security/OU=IT Department/CN=example.com"
 
+RUN sed -i '/mozilla\/AddTrust_External_Root.crt/c\!mozilla\/AddTrust_External_Root.crt' /etc/ca-certificates.conf && update-ca-certificates
+
 RUN mkdir /run/php
 
 VOLUME /var/www
