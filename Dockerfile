@@ -1,18 +1,29 @@
-FROM ubuntu:xenial
+FROM ubuntu:18.04
 
 ENV composerVersion 1.7.2
+ENV TZ=Europe/Paris
+ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update -qq && apt-get install -y -qq curl supervisor nginx git wget tzdata software-properties-common python-software-properties libxrender1
-RUN LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
-RUN echo "Europe/Paris" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
-# install php 7.1 & npm
-RUN apt-get update -qq && apt-get install -y -qq php7.1-cli php7.1-common php7.1-fpm php7.1-mysql php7.1-xml php7.1-bcmath php7.1-mbstring php7.1-zip php7.1-xdebug php7.1-curl php-apcu php-ssh2 php7.1-soap php-imagick php7.1-gd php7.1-intl npm
-RUN ln -s /usr/bin/nodejs /usr/bin/node
+RUN apt-get update -qq && apt-get install -y -qq curl supervisor nginx git wget tzdata software-properties-common libxrender1
+RUN apt-get install -y libcurl3
+RUN apt-get install -y libjpeg-turbo8
+RUN apt-get update -qq && apt-get install -y -qq ca-certificates apt-transport-https lsb-release
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+RUN sh -c 'echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sources.list.d/php.list'
+RUN echo "Europe/Paris" > /etc/timezone && ln -fs /usr/share/zoneinfo/Europe/Paris /etc/localtime && dpkg-reconfigure -f noninteractive tzdata
+# install php 7.1 & npm & pecl dependencies
+RUN apt-get update -qq && apt-get install -y -qq  php7.1-cli php7.1-common php7.1-fpm php7.1-mysql php7.1-xml php7.1-bcmath \
+    php7.1-mbstring php7.1-zip php7.1-xdebug php7.1-curl php-apcu php-ssh2 php7.1-soap php-imagick php7.1-intl php-pear
+RUN apt install -y -qq php7.1-dev
+#RUN apt install -y -qq php7.1-gd
+RUN update-alternatives --set php /usr/bin/php7.1
+RUN pecl install mongodb-1.2.7
 
 # install tools
-RUN curl -sS https://getcomposer.org/installer | php -- --version=${composerVersion} && mv composer.phar /usr/local/bin/composer
-RUN curl http://get.sensiolabs.org/php-cs-fixer.phar -o php-cs-fixer && chmod a+x php-cs-fixer && mv php-cs-fixer /usr/local/bin/php-cs-fixer
+RUN php -r "readfile('https://getcomposer.org/installer');" | php -- --version=${composerVersion} && mv composer.phar /usr/local/bin/composer
+#RUN wget -O php-cs-fixer http://get.sensiolabs.org/php-cs-fixer.phar && chmod a+x php-cs-fixer && mv php-cs-fixer /usr/local/bin/php-cs-fixer
 
+RUN apt-get install -y -qq npm rsync
 # install bower & csscomb
 RUN npm install --global bower csscomb
 
