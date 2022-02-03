@@ -13,7 +13,7 @@ RUN sh -c 'echo "deb https://packages.sury.org/php/ stretch main" > /etc/apt/sou
 RUN echo "Europe/Paris" > /etc/timezone && ln -fs /usr/share/zoneinfo/Europe/Paris /etc/localtime && dpkg-reconfigure -f noninteractive tzdata
 # install php 7.1 & npm & pecl dependencies
 RUN apt-get update -qq && apt-get install -y -qq  php7.1-cli php7.1-common php7.1-fpm php7.1-mysql php7.1-xml php7.1-bcmath \
-    php7.1-mbstring php7.1-zip php7.1-xdebug php7.1-curl php-apcu php-ssh2 php7.1-soap php-imagick php7.1-intl php-pear
+    php7.1-mbstring php7.1-zip php7.1-xdebug php7.1-curl php-apcu php-ssh2 php7.1-soap php-imagick php7.1-intl php-pear zip unzip php-zip
 RUN apt install -y -qq php7.1-dev
 #RUN apt install -y -qq php7.1-gd
 RUN update-alternatives --set php /usr/bin/php7.1
