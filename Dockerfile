@@ -18,7 +18,7 @@ RUN apt install -y -qq php7.1-dev
 #RUN apt install -y -qq php7.1-gd
 RUN update-alternatives --set php /usr/bin/php7.1
 RUN pecl install mongodb-1.2.7 
-RUN echo "extension=mongodb.so" > $PHP_INI_DIR/conf.d/mongo.ini
+RUN echo "extension=mongodb.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
 
 # install tools
 RUN php -r "readfile('https://getcomposer.org/installer');" | php -- --version=${composerVersion} && mv composer.phar /usr/local/bin/composer
