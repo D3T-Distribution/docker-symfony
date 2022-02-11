@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-ENV composerVersion 1.7.2
+ENV composerVersion 1.10.25
 ENV TZ=Europe/Paris
 ENV DEBIAN_FRONTEND=noninteractive
 
